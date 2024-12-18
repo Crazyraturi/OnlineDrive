@@ -1,5 +1,7 @@
 Online Drive - File Upload and Management System
 
+![Screenshot From 2024-12-18 23-51-36](https://github.com/user-attachments/assets/ef347b36-c76c-4646-ad46-579ce5801078)
+
 A web application for uploading, managing, and downloading files securely. This project allows users to upload files such as images, PDFs, videos, and songs to the cloud, view their files, and download them remotely. The application is built using Node.js, Express.js, Mongoose, JWT Authentication, and Multer for file handling.
 Features
 
