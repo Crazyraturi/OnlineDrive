@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+    rel="stylesheet"
+  />
+  <title>OnlineDrive</title>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-blue-500 to-purple-500 py-6">
+    <h1 class="text-center text-4xl font-bold text-white">
+      Welcome to OnlineDrive
+    </h1>
+  </header>
+
+  <!-- Description Section -->
+  <section class="bg-gray-100 py-8 px-6">
+    <h2 class="text-center text-2xl font-medium text-gray-700">
+      Upload and access your files from anywhere!
+    </h2>
+    <p class="text-center mt-2 text-gray-500">
+      Supports images, videos, PDFs, songs, and more.
+    </p>
+  </section>
+
+  <!-- Upload Section -->
+  <section class="py-12 flex flex-col items-center">
+    <!-- Upload Button -->
+    <button
+      onclick="showPopup()"
+      class="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300"
+    >
+      Upload Files
+    </button>
+
+    <!-- Dropzone Popup -->
+    <div
+      id="popup"
+      class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 transition-all duration-300"
+    >
+      <div class="bg-white w-11/12 max-w-lg rounded-lg shadow-xl p-8 relative">
+        <!-- Close Button -->
+        <button
+          onclick="hidePopup()"
+          class="absolute top-4 right-4 bg-red-500 hover:bg-red-600 text-white rounded-full px-3 py-1 font-bold"
+          aria-label="Close Popup"
+        >
+          X
+        </button>
+
+        <!-- Dropzone -->
+        <form action="/upload" method="post" enctype="multipart/form-data">
+          <label
+            for="dropzone-file"
+            class="flex flex-col items-center justify-center w-full h-60 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-all duration-300"
+          >
+            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+              <svg
+                class="w-14 h-14 mb-4 text-gray-400"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 20 16"
+                aria-hidden="true"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                />
+              </svg>
+              <p class="mb-2 text-sm text-gray-500 font-medium">
+                Drag & Drop or <span class="text-blue-500">Click to upload</span>
+              </p>
+              <p class="text-xs text-gray-400">
+                Accepted formats: SVG, PNG, JPG, GIF (Max: 800x400px)
+              </p>
+            </div>
+            <input id="dropzone-file" type="file" name="file" class="hidden" />
+          </label>
+          <!-- Submit Button -->
+          <button
+            type="submit"
+            class="mt-6 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-all duration-300"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Files Section -->
+  <section class="m-6">
+    <h2 class="text-2xl font-semibold mb-4 text-gray-700">Your Files</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <% files.forEach((file) => { %>
+      <div class="p-4 rounded-lg bg-white shadow-md hover:shadow-lg transition-all duration-300">
+        <h3 class="text-lg font-medium mb-2 text-gray-800"><%= file.originalname %></h3>
+        <a
+          href="/download/<%= file.path %>"
+          download="<%= file.originalname %>"
+          class="flex items-center justify-between text-blue-500 hover:text-blue-700 transition-all duration-300"
+        >
+        
+          <i class="ri-download-line text-2xl"></i>
+        </a>
+      </div>
+      <% }); %>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+  <script>
+    function showPopup() {
+      document.getElementById("popup").classList.remove("hidden");
+    }
+
+    function hidePopup() {
+      document.getElementById("popup").classList.add("hidden");
+    }
+  </script>
+</body>
+</html>
